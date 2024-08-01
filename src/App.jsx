@@ -44,16 +44,20 @@ function App() {
 
   return (
     <div className="appContainer">
-      {queueMessage.map((msg, i) => (
-        <div className="message__container" key={i}>
-          <img src={alertLogo} />
-          <div>
-            <p>MAC ID del dispositivo: {msg.macAddress}</p>
-            <p>Tiempo activo del dispositivo: {msToTime(Number(msg.timestamp))}</p>
-            <p>Hora: {formatDateTime(msg.clientTimestamp)}</p>
-          </div>
-        </div>
-      ))}
+      {queueMessage.length === 0 ? <h2>No se han recibido mensajes</h2> : (
+        <>
+          {queueMessage.map((msg, i) => (
+            <div className="message__container" key={i}>
+              <img src={alertLogo} />
+              <div>
+                <p>MAC ID del dispositivo: {msg.macAddress}</p>
+                <p>Tiempo activo del dispositivo: {msToTime(Number(msg.timestamp))}</p>
+                <p>Hora: {formatDateTime(msg.clientTimestamp)}</p>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 }
