@@ -17,7 +17,36 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
+.appContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 16px;
+}
+.message__container {
+  display: flex;
+  width: 100%;
+  max-width: 440px;
+  background-color: #cac6c6;
+  padding: 16px;
+  color: black;
+  border-radius: 3px;
+  height: 124px;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeIn 0.5s forwards, slideDown 0.5s forwards;
+}
+.appContainer .message__container:last-child {
+  border: 3px solid rgb(214, 76, 76);
+}
+img {
+  width: 24px;
+  height: 24px;
+}
+p {
+  font-weight: 700;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -39,4 +68,15 @@
 
 .read-the-docs {
   color: #888;
+}
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+  }
 }

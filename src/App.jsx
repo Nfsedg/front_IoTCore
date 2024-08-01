@@ -1,37 +1,60 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import { useDevices } from "./hooks/useDevides";
+import { useEffect, useState } from "react";
+import alertLogo from "./assets/alert.svg";
+import { useDevices } from "./hooks/useDevices";
 import "./App.css";
 
+function formatDateTime(timestamp = '') {
+  const date = new Date(timestamp)
+  let day = date.getDate().toString().padStart(2, '0');
+  let monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "Julio", "Agosto", "Septiembre", "October", "November", "December"
+  ];
+  let month = monthNames[date.getMonth()];
+  let year = date.getFullYear().toString().slice(-2);
+  let hours = date.getHours().toString().padStart(2, '0');
+  let minutes = date.getMinutes().toString().padStart(2, '0');
+  let seconds = date.getSeconds().toString().padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
+function msToTime(milliseconds) {
+  let totalSeconds = Math.floor(milliseconds / 1000);
+  let hours = Math.floor(totalSeconds / 3600);
+  let minutes = Math.floor((totalSeconds % 3600) / 60);
+  let seconds = totalSeconds % 3600 % 60;
+
+  let formattedHours = hours.toString().padStart(2, '0');
+  let formattedMinutes = minutes.toString().padStart(2, '0');
+  let formattedSeconds = seconds.toString().padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
 function App() {
-  const [count, setCount] = useState(0);
   const { messageDetector } = useDevices();
-  console.log(messageDetector);
+  const [queueMessage, setQueueMessage] = useState([]);
+
+  useEffect(() => {
+    if(messageDetector && !queueMessage.some(m => messageDetector.timestamp === m.timestamp)) {
+      setQueueMessage(prev => [...prev, {...messageDetector, clientTimestamp: new Date().getTime()}])
+    }
+  }, [messageDetector])
+
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p>{messageDetector}</p>
-    </>
+    <div className="appContainer">
+      {queueMessage.map((msg, i) => (
+        <div className="message__container" key={i}>
+          <img src={alertLogo} />
+          <div>
+            <p>MAC ID del dispositivo: {msg.macAddress}</p>
+            <p>Tiempo activo del dispositivo: {msToTime(Number(msg.timestamp))}</p>
+            <p>Hora: {formatDateTime(msg.clientTimestamp)}</p>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 
