@@ -11,7 +11,7 @@ export function Login() {
   console.log(userData);
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData.password === import.meta.env.VITE_TEMPORARY_PASSWORD) {
+    if (userData.password === "nfsedg") {
       setUser(userData.user);
     } else {
       window.alert("Contraseña incorrecta");

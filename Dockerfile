@@ -18,7 +18,7 @@ COPY . .
 
 # Expose the port your application runs on (change if needed)
 # React APP
-EXPOSE 5173
+EXPOSE 80
 
 # Start the application
 CMD ["npm", "run", "dev"]
