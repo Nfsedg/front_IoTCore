@@ -26,7 +26,7 @@ export function Login() {
     }));
   };
 
-  if (user) return <Navigate to="messages" />;
+  if (user) return <Navigate to="/messages" />;
 
   return (
     <div className="login">

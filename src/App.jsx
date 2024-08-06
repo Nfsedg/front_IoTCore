@@ -1,23 +1,19 @@
 import { Messages } from "./views/Messages";
 import { Login } from "./views/Login";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { UserContextProvider } from "./context/userContext";
 import "./App.css";
-import { UserContext } from "./context/userContext";
-import { useContext } from "react";
-import Restrincted from "./views/Restrincted";
 
 function App() {
-  const { user } = useContext(UserContext);
-
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route
-          path="/messages"
-          element={user ? <Messages /> : <Restrincted />}
-        />
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </UserContextProvider>
     </BrowserRouter>
   );
 }
