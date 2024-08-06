@@ -8,10 +8,10 @@ export function Login() {
     user: "",
     password: "",
   });
-  console.log(userData);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData.password === "nfsedg") {
+    if (userData.password === import.meta.env.AWS_COGNITO_IDENTITY_POOL_ID) {
       setUser(userData.user);
     } else {
       window.alert("Contraseña incorrecta");
