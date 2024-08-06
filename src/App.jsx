@@ -1,6 +1,6 @@
 import { Messages } from "./views/Messages";
 import { Login } from "./views/Login";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { UserContext } from "./context/userContext";
 import { useContext } from "react";
@@ -10,7 +10,7 @@ function App() {
   const { user } = useContext(UserContext);
 
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route
@@ -18,7 +18,7 @@ function App() {
           element={user ? <Messages /> : <Restrincted />}
         />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
