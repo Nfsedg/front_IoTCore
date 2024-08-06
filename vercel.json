@@ -1,6 +1,0 @@
-{
-  "routes": [
-    { "src": "/messages", "dest": "/messages" },
-    { "src": "/", "dest": "/" }
-  ]
-}
