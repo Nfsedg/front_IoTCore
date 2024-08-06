@@ -40,6 +40,13 @@
 .appContainer .message__container:last-child {
   border: 3px solid rgb(214, 76, 76);
 }
+.login form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 img {
   width: 24px;
   height: 24px;
