@@ -11,7 +11,7 @@ export function Login() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData.password === import.meta.env.AWS_COGNITO_IDENTITY_POOL_ID) {
+    if (userData.password === import.meta.env.VITE_TEMPORARY_PASSWORD) {
       setUser(userData.user);
     } else {
       window.alert("Contraseña incorrecta");
